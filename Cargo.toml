@@ -1,0 +1,32 @@
+[package]
+name = "mintdb-server"
+version = "0.1.0-beta.3"
+edition = "2021"
+authors = ["Eric Rodriguez <ericmrodriguez7@gmail.com>"]
+readme = "README.md"
+description = "MintDB is an open source document based database built in Rust."
+license = "MIT"
+keywords = ["database", "mintdb"]
+include = ["/src", "/lib"]
+
+[workspace]
+members = ["lib"]
+
+[profile.release]
+lto = true
+strip = true
+opt-level = 3
+panic = 'abort'
+codegen-units = 1
+
+[dependencies]
+futures = "0.3.25"
+mintdb = { version="0.1.0-beta.3", path = "lib"}
+once_cell = "1.16.0"
+serde = { version = "1.0.148", features = ["derive", "rc"] }
+serde_json = "1.0.89"
+tokio = { version = "1.22.0", features = ["macros", "sync", "rt-multi-thread", "signal"]}
+tokio-stream = "0.1.11"
+uuid = { version = "1.2.2", features = ["serde", "v4"]}
+warp = "0.3.3"
+thiserror = "1.0.37"
